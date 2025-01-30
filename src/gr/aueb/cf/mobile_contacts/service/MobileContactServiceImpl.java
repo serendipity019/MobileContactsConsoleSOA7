@@ -13,7 +13,7 @@ public class MobileContactServiceImpl implements IMobileContactService {
 
     private final IMobileContactDAO dao;
 
-    //Constructor dependancy injection
+    //Constructor dependency injection
     public MobileContactServiceImpl(IMobileContactDAO dao) {
         this.dao = dao;
     }
