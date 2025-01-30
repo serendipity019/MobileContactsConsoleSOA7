@@ -16,7 +16,12 @@ public interface IMobileContactService {
             PhoneNumberAlreadyExistsException, ContactNotfoundException;
 
     void deleteContactById(Long id) throws ContactNotfoundException;
+
     MobileContact getContactById(Long id) throws ContactNotfoundException;
+
     List<MobileContact> getAllContacts();
 
+    MobileContact getContactByPhoneNumber(String phoneNumber) throws ContactNotfoundException;
+
+    void deleteContactByPhoneNumber(String phoneNumber) throws  ContactNotfoundException ;
 }
