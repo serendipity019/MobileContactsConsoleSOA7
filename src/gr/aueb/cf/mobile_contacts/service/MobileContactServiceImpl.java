@@ -5,6 +5,7 @@ import gr.aueb.cf.mobile_contacts.dto.MobileContactInsertDTO;
 import gr.aueb.cf.mobile_contacts.dto.MobileContactUpdateDTO;
 import gr.aueb.cf.mobile_contacts.exceptions.ContactNotfoundException;
 import gr.aueb.cf.mobile_contacts.exceptions.PhoneNumberAlreadyExistsException;
+import gr.aueb.cf.mobile_contacts.mapper.Mapper;
 import gr.aueb.cf.mobile_contacts.model.MobileContact;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class MobileContactServiceImpl implements IMobileContactService {
             if (dao.phoneNumberExists(dto.getPhoneNumber())) {
                 throw new PhoneNumberAlreadyExistsException("Contact with phone number " + dto.getPhoneNumber() + " already exists.");
             }
-            mobileContact = mapInsertDTOToContact(dto);
+            mobileContact = Mapper.mapInsertDTOToContact(dto);
 
             System.err.printf("MobileContactServiceImpl Logger: %s was insert. \n", mobileContact);
             return dao.insert(mobileContact);
@@ -54,7 +55,7 @@ public class MobileContactServiceImpl implements IMobileContactService {
                 throw new PhoneNumberAlreadyExistsException("Contact with phone number: " + dto.getPhoneNumber() + " already exists and cannot be updated");
             }
 
-            newContact = mapUpdateDTOToContact(dto); // here did happen something and i chose autocorrect
+            newContact = Mapper.mapUpdateDTOToContact(dto); // here did happen something and i chose autocorrect
             System.err.printf("MobileContactServiceImpl Logger: %s was updated with new info: %s\n", mobileContact, newContact);
             return dao.update(dto.getId(), newContact);
         } catch (ContactNotfoundException | PhoneNumberAlreadyExistsException e) {
@@ -131,11 +132,11 @@ public class MobileContactServiceImpl implements IMobileContactService {
     }
 
 
-    private MobileContact mapInsertDTOToContact(MobileContactInsertDTO dto) {
-        return new MobileContact(null, dto.getFirstname(), dto.getLastname(), dto.getPhoneNumber());
-    }
-
-    private MobileContact mapUpdateDTOToContact(MobileContactUpdateDTO dto) {
-        return new MobileContact(dto.getId(), dto.getFirstname(), dto.getLastname(), dto.getPhoneNumber());
-    }
+//    private MobileContact mapInsertDTOToContact(MobileContactInsertDTO dto) {
+//        return new MobileContact(null, dto.getFirstname(), dto.getLastname(), dto.getPhoneNumber());
+//    }
+//
+//    private MobileContact mapUpdateDTOToContact(MobileContactUpdateDTO dto) {
+//        return new MobileContact(dto.getId(), dto.getFirstname(), dto.getLastname(), dto.getPhoneNumber());
+//    }
 }
